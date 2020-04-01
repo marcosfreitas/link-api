@@ -11,4 +11,10 @@ Após clonar o projeto renomeie o arquivo **src/.env.example** para **src/.env**
 
 # Execução
 
-feito isso o projeto estará pronto para rodar com `docker-compose up` na raiz do repositório clonado.
+Feito isso o projeto estará pronto para rodar com `docker-compose up` na raiz do repositório clonado.
+
+Dando tudo certo, o projeto estará rodando com este endereço base: **http://localhost:7000/v1** e estes endpoints disponíveis:
+
+- GET **/** : status
+- GET **/deal** : lista de dados salvos
+- POST **/deal** : sincroniza dados entre pipedrive e bling, salvando os dados intermediários na database **linkou** com o documento **deals**.
