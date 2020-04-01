@@ -11,9 +11,9 @@ Após clonar o projeto renomeie o arquivo **src/.env.example** para **src/.env**
 
 # Execução
 
-Feito isso o projeto estará pronto para rodar com `docker-compose up` na raiz do repositório clonado.
+Feito isso o projeto estará pronto para rodar com `docker-compose down; docker-compose up --build --remove-orphans` na raiz do repositório clonado.
 
-Dando tudo certo, o projeto estará rodando com este endereço base: **http://localhost:7000/v1** e estes endpoints disponíveis:
+Dando tudo certo, o projeto estará rodando com este endereço base: **http://localhost:8081/v1** e estes endpoints disponíveis:
 
 - GET **/** : status
 - GET **/deal** : lista de dados salvos
