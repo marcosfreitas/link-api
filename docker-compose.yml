@@ -1,0 +1,75 @@
+version: "3.7"
+services:
+
+# APIs service
+  api:
+    image: marcosfreitas/ubuntu-nodejs:latest
+    #build:
+    #  context: ./docker
+    #  dockerfile: Dockerfile
+    privileged: true
+    tty: true
+    stdin_open: true
+#    depends_on:
+#      - mongo
+#s      - mongo-express
+    restart: always
+    networks:
+      - backend
+#      - database
+    ports:
+      - "7000:7000"
+    working_dir: /var/www/
+    volumes:
+      - ./src/:/var/www/
+
+# @bug problems with authentication
+# Database service
+#  mongo:
+#    image: mongo:bionic
+#    restart: always
+#    networks:
+#      - database
+#    environment:
+#      MONGO_INITDB_DATABASE: ${COMPOSE_PROJECT_NAME}
+#      MONGO_INITDB_ROOT_USERNAME:
+#      MONGO_INITDB_ROOT_PASSWORD:
+#    ports:
+#     - 27017:27017
+#    volumes:
+#      - mongo-storage:/data/db
+
+# Database admin panel service
+#  mongo-express:
+#    image: mongo-express
+#    restart: always
+#    networks:
+#      - database
+#    ports:
+#      - 8081:8081
+#    environment:
+#      ME_CONFIG_BASICAUTH_USERNAME:
+#      ME_CONFIG_BASICAUTH_PASSWORD:
+#      ME_CONFIG_MONGODB_ADMINUSERNAME:
+#      ME_CONFIG_MONGODB_ADMINPASSWORD:
+
+# FrontEnd Service
+#  web:
+#    build:
+#      context: ./
+#      dockerfile:  Dockerfile
+#      restart: always
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - "./src" : "/var/www/html"
+
+networks:
+  backend:
+#  database:
+
+volumes:
+  mongo-storage:
+    driver: local
+    labels:
+      mf.project.name: ${COMPOSE_PROJECT_NAME}
