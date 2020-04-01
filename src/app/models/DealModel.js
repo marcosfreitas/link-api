@@ -9,6 +9,11 @@ class DealModel {
 
     }
 
+    all = function(callback) {
+        let model = this.repository;
+        return model.find({}, callback);
+    };
+
     store = function(data, callback) {
         let document = this.repository(data);
         document.save(callback);

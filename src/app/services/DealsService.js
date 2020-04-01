@@ -19,11 +19,43 @@
         this.model = new DealModel();
     }
 
+    all = function() {
+        try {
+           return this.model.all(function(error, data) {
+
+                if (error) {
+                    return {
+                        error : 1,
+                        code: 'list_failed',
+                        description : error,
+                        data: error
+                    };
+                }
+
+                return {
+                    error : 0,
+                    code: 'data_found',
+                    description: 'dados encontrados',
+                    data : data
+                };
+            });
+
+        } catch (error) {
+            console.error(error);
+            return {
+                error: 1,
+                code: 'unexpected_app_status',
+                description: "Erro inesperado",
+                data: error
+            };
+        }
+    };
+
 
     /**
      * Getting filtered deals from Pipedrive
      */
-     getWonDealsFromRemote = async function(req, res) {
+    getWonDealsFromRemote = async function(req, res) {
 
         try {
 
@@ -44,12 +76,12 @@
             };
         }
 
-     }
+    }
 
-     /**
-      * Saving received deals to our database document
-      */
-     saveToOurDatabase = function(deals, req, res) {
+    /**
+     * Saving received deals to our database document
+     */
+    saveToOurDatabase = function(deals, req, res) {
         try {
 
             let errors = [];
@@ -101,9 +133,12 @@
                 data: errors
             };
         }
-     }
+    }
 
-     putAsOrderIntoBling = async function(deals, req, res) {
+    /**
+     * Send all deals to bling
+     */
+    putAsOrderIntoBling = async function(deals, req, res) {
         try {
             console.log('Salvando dados na bling...');
 
@@ -165,12 +200,12 @@
                 data: []
             });
         }
-     }
+    }
 
-     /**
-      * Format XML to be sent to Bling API
-      */
-     mountBlingXML = function(deal) {
+    /**
+     * Format XML to be sent to Bling API
+     */
+    mountBlingXML = function(deal) {
         let xml = '<?xml version="1.0" encoding="UTF-8"?>';
 
             xml += `<pedido>
@@ -191,7 +226,7 @@
 
         return xml;
 
-     }
+    }
  }
 
 

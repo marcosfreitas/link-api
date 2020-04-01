@@ -4,8 +4,30 @@
 let DealsService = require('../services/DealsService');
 
 class DealsController {
+
     constructor () {
         this.service = new DealsService();
+    }
+
+    all = async function(req, res) {
+        try {
+            let deals = await this.service.all(req, res);
+
+            res.json({
+                error: 0,
+                code: "data_found",
+                description: "Dados encontrados",
+                data: deals
+            });
+
+        } catch (error) {
+            res.json({
+                error: 1,
+                code: 'unexpected_app_status',
+                description: "Erro inesperado",
+                data: error
+            });
+        }
     }
 
     patch = async function(req, res) {
@@ -17,7 +39,8 @@ class DealsController {
                 return res.json({
                     error: 1,
                     code: "empty_data",
-                    description: "Nenhuma informação válida obtida"
+                    description: "Nenhuma informação válida obtida",
+                    data: []
                 });
             }
 
@@ -25,7 +48,8 @@ class DealsController {
                 return res.json({
                     error: 1,
                     code: "invalid_response",
-                    description: "Requisição ao PipeDrive falhou"
+                    description: "Requisição ao PipeDrive falhou",
+                    data: []
                 });
             }
 
@@ -38,7 +62,12 @@ class DealsController {
             res.json(saved);
 
         } catch (error) {
-            console.debug(error);
+            res.json({
+                error: 1,
+                code: 'unexpected_app_status',
+                description: "Erro inesperado",
+                data: []
+            });
         }
     }
 }

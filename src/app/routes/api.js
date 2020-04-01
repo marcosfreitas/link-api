@@ -10,6 +10,10 @@ router.get('/', function (req, res) {
     res.json({ working : true});
 });
 
+router.get('/deal/', function(req, res) {
+    DealsControllerInstance.all(req, res);
+});
+
 router.patch('/deal/', function(req, res) {
     DealsControllerInstance.patch(req, res);
 });
